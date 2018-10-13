@@ -106,10 +106,10 @@ void justexe::sell(account_name seller, asset quantity) {
   action(permission_level{_self, N(active)}, EOS_TOKEN_CONTRACT, N(transfer),
          make_tuple(_self, seller, eosout, std::string("sell JUST token")))
       .send();
-  
-  auto itr_global = _global_inx.find(0);
-  _global_inx.modify(itr_global, _self,
-                     [&](auto &m) { m.dev_pool += feeamount; });
+  update_quote(feeamount);
+  // auto itr_global = _global_inx.find(0);
+  // _global_inx.modify(itr_global, _self,
+  //                    [&](auto &m) { m.dev_pool += feeamount; });
 }
 
 uint64_t justexe::get_flow(asset quantity) {
